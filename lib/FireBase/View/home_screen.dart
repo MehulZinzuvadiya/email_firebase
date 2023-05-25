@@ -1,5 +1,7 @@
 import 'package:email_firebase/Utils/firebase_helper.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
@@ -11,6 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final user=FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -41,26 +44,32 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(
-            child: ElevatedButton(
-              onPressed: () {
-                FirebaseHelper.firebaseHelper.signUp(email: 'mehul@gmail.com', password: '123456');
-              },
-              child: Text(
-                'Register Me',
-                style: GoogleFonts.poppins(
-                  color: Colors.white,
+      body: Center(
+        child: Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Logged In as =${user?.email}",style: TextStyle(
+                fontSize: 12.sp,
+              ),),
+              SizedBox(height: 10,),
+              ElevatedButton(
+                onPressed: () async {
+                  await FirebaseHelper.firebaseHelper.signOut();
+                },
+                child: Text(
+                  'LogOut',
+                  style: GoogleFonts.poppins(
+                    color: Colors.white,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green.shade700,
                 ),
               ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green.shade700,
-              ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     ));
   }

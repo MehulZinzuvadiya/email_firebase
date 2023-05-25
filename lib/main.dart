@@ -6,6 +6,7 @@ import 'package:sizer/sizer.dart';
 import 'FireBase/View/home_screen.dart';
 import 'LoginPage/View/login_screen.dart';
 import 'SignUpPage/signup_screen.dart';
+import 'SplashScreen/splash_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,6 +20,10 @@ Future<void> main() async {
         getPages: [
           GetPage(
             name: '/',
+            page: () => SplashScreen(),
+          ),
+          GetPage(
+            name: '/login',
             page: () => LoginScreen(),
           ),
           GetPage(

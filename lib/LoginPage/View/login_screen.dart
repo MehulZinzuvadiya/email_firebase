@@ -1,3 +1,4 @@
+import 'package:email_firebase/Utils/firebase_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -128,8 +129,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 30,
                       ),
                       InkWell(
-                        onTap: () {
-                          Get.toNamed('/home');
+                        onTap: () async {
+                          String email = txtemail.text;
+                          String password = txtpassword.text;
+
+                          String msg = await FirebaseHelper.firebaseHelper
+                              .signIn(email: "$email", password: "$password");
+                          Get.snackbar("$msg", "user added!");
+                          if (msg == "Success") {
+                            Get.offAndToNamed('/home');
+                          }
                         },
                         child: Container(
                           height: 50,
