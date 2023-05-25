@@ -31,8 +31,8 @@ class _HomeScreenState extends State<HomeScreen> {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Colors.amber.shade700,
-                Colors.amber.shade100,
+                Colors.blue.shade700,
+                Colors.blue.shade100,
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -52,11 +52,11 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Text(
                 'Register Me',
                 style: GoogleFonts.poppins(
-                  color: Colors.black,
+                  color: Colors.white,
                 ),
               ),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.amber,
+                backgroundColor: Colors.green.shade700,
               ),
             ),
           ),
