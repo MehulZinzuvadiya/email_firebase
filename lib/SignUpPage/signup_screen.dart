@@ -24,7 +24,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               children: <Widget>[
                 Container(
                   height: 400,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage('assets/images/background.png'),
                           fit: BoxFit.fill)),
@@ -35,7 +35,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         width: 80,
                         height: 200,
                         child: Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                               image: DecorationImage(
                                   image:
                                       AssetImage('assets/images/light-1.png'))),
@@ -46,7 +46,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         width: 80,
                         height: 150,
                         child: Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                               image: DecorationImage(
                                   image:
                                       AssetImage('assets/images/light-2.png'))),
@@ -58,7 +58,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         width: 80,
                         height: 150,
                         child: Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                               image: DecorationImage(
                                   image:
                                       AssetImage('assets/images/clock.png'))),
@@ -66,8 +66,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                       Positioned(
                           child: Container(
-                        margin: EdgeInsets.only(top: 50),
-                        child: Center(
+                        margin: const EdgeInsets.only(top: 50),
+                        child: const Center(
                           child: Text(
                             "SignUp",
                             style: TextStyle(
@@ -81,16 +81,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(30.0),
+                  padding: const EdgeInsets.all(30.0),
                   child: Column(
                     children: <Widget>[
                       Container(
-                        padding: EdgeInsets.all(5),
+                        padding: const EdgeInsets.all(5),
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10),
                             boxShadow: [
-                              BoxShadow(
+                              const BoxShadow(
                                   color: Color.fromRGBO(143, 148, 251, .2),
                                   blurRadius: 20.0,
                                   offset: Offset(0, 10))
@@ -98,8 +98,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         child: Column(
                           children: <Widget>[
                             Container(
-                              padding: EdgeInsets.all(8.0),
-                              decoration: BoxDecoration(
+                              padding: const EdgeInsets.all(8.0),
+                              decoration: const BoxDecoration(
                                   border: Border(
                                       bottom: BorderSide(color: Colors.grey))),
                               child: TextField(
@@ -112,7 +112,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                             ),
                             Container(
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               child: TextField(
                                 controller: txtpassword,
                                 decoration: InputDecoration(
@@ -125,7 +125,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
                       InkWell(
@@ -145,11 +145,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           height: 50,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              gradient: LinearGradient(colors: [
+                              gradient: const LinearGradient(colors: [
                                 Color.fromRGBO(143, 148, 251, 1),
                                 Color.fromRGBO(143, 148, 251, .6),
                               ])),
-                          child: Center(
+                          child: const Center(
                             child: Text(
                               "SignUp",
                               style: TextStyle(
@@ -160,13 +160,59 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                       ),
                       SizedBox(
+                        height: 15,
+                      ),
+                      InkWell(
+                        onTap: () async {
+                          var msg = await FirebaseHelper.firebaseHelper
+                              .signInWithGoogle();
+
+                          Get.snackbar("$msg", "Guser added!");
+                          if (msg == "Success") {
+                            Get.offAndToNamed('/home');
+                          }
+                        },
+                        child: Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              gradient: const LinearGradient(colors: [
+                                Color.fromRGBO(143, 148, 251, 1),
+                                Color.fromRGBO(143, 148, 251, .6),
+                              ])),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: Container(
+                                    height: 3.5.h,
+                                    width: 3.5.h,
+                                    child: Image.asset(
+                                        "assets/images/googleLogo.png")),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              const Center(
+                                child: Text(
+                                  "Sign In With Google",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
                         height: 70,
                       ),
                       TextButton(
                         onPressed: () {
                           Get.back();
                         },
-                        child: Text(
+                        child: const Text(
                           "Already Have An Account? Sign In",
                           style: TextStyle(
                               color: Color.fromRGBO(143, 148, 251, 1)),

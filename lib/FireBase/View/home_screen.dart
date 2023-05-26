@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("Logged In as =${user?.email}",style: TextStyle(
+              Text("Logged In as =${user?.getIdToken()}",style: TextStyle(
                 fontSize: 12.sp,
               ),),
               SizedBox(height: 10,),
