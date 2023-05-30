@@ -167,7 +167,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           var msg = await FirebaseHelper.firebaseHelper
                               .signInWithGoogle();
 
-                          Get.snackbar("$msg", "Guser added!");
+                          Get.snackbar("$msg", "Guser added ");
                           if (msg == "Success") {
                             Get.offAndToNamed('/home');
                           }

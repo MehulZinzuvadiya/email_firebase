@@ -40,6 +40,7 @@ class FirebaseHelper {
     await FirebaseAuth.instance
         .signOut()
         .then((value) => Get.offAndToNamed('login'));
+    GoogleSignIn().signOut();
   }
 
   Future<String?> signInWithGoogle() async {
@@ -78,5 +79,21 @@ class FirebaseHelper {
   bool checkUser() {
     User? user = firebaseAuth.currentUser;
     return user != null;
+  }
+
+  Map UserData() {
+    User? user = firebaseAuth.currentUser;
+
+    String? image = user!.photoURL;
+    String? name = user.displayName;
+    String? email = user.email;
+    String? phone = user.phoneNumber;
+
+    return {
+      "image": image,
+      "name": name,
+      "email": email,
+      "phone": phone,
+    };
   }
 }

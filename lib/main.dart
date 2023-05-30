@@ -1,4 +1,3 @@
-import 'package:email_firebase/xy.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -10,8 +9,7 @@ import 'SplashScreen/splash_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-  );
+  await Firebase.initializeApp();
   runApp(Sizer(
     builder:
         (BuildContext context, Orientation orientation, DeviceType deviceType) {
