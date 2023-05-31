@@ -1,6 +1,5 @@
-import 'dart:math';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -10,6 +9,7 @@ class FirebaseHelper {
   FirebaseHelper._();
 
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
   Future<String> signUp(
       {required String email, required String password}) async {
@@ -66,16 +66,6 @@ class FirebaseHelper {
     return msg;
   }
 
-  // Future signOut() async{
-  //   try{
-  //     return await FirebaseAuth.instance.signOut();
-  //   }
-  //   catch(e){
-  //     print(e.toString());
-  //     return null;
-  //   }
-  // }
-
   bool checkUser() {
     User? user = firebaseAuth.currentUser;
     return user != null;
@@ -95,5 +85,29 @@ class FirebaseHelper {
       "email": email,
       "phone": phone,
     };
+  }
+
+  void addTask({title, notes, date, time, priority}) {
+    User? user = firebaseAuth.currentUser;
+    String uid = user!.uid;
+
+    firebaseFirestore.collection("Task").doc("$uid").collection("todo").add({
+      "title": title,
+      "notes": notes,
+      "date": date,
+      "time": time,
+      "priority": priority,
+    });
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getTask() {
+    User? user = firebaseAuth.currentUser;
+    var uid = user!.uid;
+
+    return firebaseFirestore
+        .collection("Task")
+        .doc("$uid")
+        .collection("todo")
+        .snapshots();
   }
 }

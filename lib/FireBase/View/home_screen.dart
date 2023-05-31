@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:email_firebase/FireBase/Model/home_model.dart';
 import 'package:email_firebase/FireBase/controller/home_controller.dart';
 import 'package:email_firebase/Utils/firebase_helper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -82,23 +84,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: Colors.black,
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
-      body: Center(
-        child: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Logged In as = ${homeController.userDetail['email']}",
-                style: TextStyle(
-                  fontSize: 12.sp,
-                ),
-              ),
               SizedBox(
-                height: 10,
+                height: 10.sp,
               ),
               ElevatedButton(
                 onPressed: () async {
@@ -111,12 +98,59 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green.shade700,
+                  backgroundColor: Colors.red.shade700,
                 ),
               ),
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.toNamed('/addData');
+        },
+        backgroundColor: Colors.purple.shade400,
+        child: Icon(
+          Icons.add,
+        ),
+      ),
+      body: StreamBuilder(
+        stream: FirebaseHelper.firebaseHelper.getTask(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Text("${snapshot.error}");
+          } else if (snapshot.hasData) {
+            List<HomeModel> taskList = [];
+            QuerySnapshot? Snapdata = snapshot.data;
+            for (var x in Snapdata!.docs) {
+              Map? data = x.data() as Map;
+
+              var title = data['title'];
+              var priority = data['priority'];
+              var date = data['date'];
+              var time = data['time'];
+              var notes = data['notes'];
+              HomeModel h1 = HomeModel(
+                time: time,
+                priority: priority,
+                notes: notes,
+                date: date,
+                title: title,
+              );
+              taskList.add(h1);
+            }
+            return ListView.builder(
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text("${taskList[index].title}"),
+                  subtitle: Text("${taskList[index].priority}"),
+                );
+              },
+              itemCount: taskList.length,
+            );
+          }
+          return Center(child: CircularProgressIndicator());
+        },
       ),
     ));
   }

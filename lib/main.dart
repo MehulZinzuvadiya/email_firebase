@@ -1,3 +1,4 @@
+import 'package:email_firebase/addData/add_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -31,6 +32,10 @@ Future<void> main() async {
           GetPage(
             name: '/home',
             page: () => HomeScreen(),
+          ),
+          GetPage(
+            name: '/addData',
+            page: () => AddDataScreen(),
           ),
         ],
       );
