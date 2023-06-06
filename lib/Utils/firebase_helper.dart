@@ -88,8 +88,7 @@ class FirebaseHelper {
   }
 
   void addTask({title, notes, date, time, priority}) {
-    User? user = firebaseAuth.currentUser;
-    String uid = user!.uid;
+    String uid = getUid();
 
     firebaseFirestore.collection("Task").doc("$uid").collection("todo").add({
       "title": title,
@@ -100,14 +99,52 @@ class FirebaseHelper {
     });
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> getTask() {
+  String getUid() {
     User? user = firebaseAuth.currentUser;
-    var uid = user!.uid;
+    String uid = user!.uid;
+    return uid;
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getTask() {
+    String uid = getUid();
 
     return firebaseFirestore
         .collection("Task")
         .doc("$uid")
         .collection("todo")
         .snapshots();
+  }
+
+  void updateTask(
+      {required title,
+      required notes,
+      required date,
+      required time,
+      required priority,
+      required key}) {
+    String uid = getUid();
+    firebaseFirestore
+        .collection("Task")
+        .doc("$uid")
+        .collection("todo")
+        .doc(key)
+        .set({
+      "title": title,
+      "notes": notes,
+      "date": date,
+      "time": time,
+      "priority": priority,
+    });
+  }
+
+  Future<void> deletedata(String key) async {
+    String uid = getUid();
+
+    await firebaseFirestore
+        .collection("Task")
+        .doc("$uid")
+        .collection("todo")
+        .doc(key)
+        .delete();
   }
 }
