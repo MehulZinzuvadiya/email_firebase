@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:email_firebase/Utils/Notification_Service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -146,5 +148,37 @@ class FirebaseHelper {
         .collection("todo")
         .doc(key)
         .delete();
+  }
+
+  FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+
+  Future<void> initFirebaseMessage() async {
+    final fcmToken = await FirebaseMessaging.instance.getToken();
+    print(fcmToken);
+    await firebaseMessaging.setAutoInitEnabled(true);
+
+    NotificationSettings settings = await firebaseMessaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+
+    FirebaseMessaging.onMessage.listen((message) {
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        String? title = message.notification!.title;
+        String? body = message.notification!.body;
+
+        NotificationService.notificationService
+            .showFireNotification(title!, body!);
+        print('Message also contained a notification: ${message.notification}');
+      }
+    });
   }
 }

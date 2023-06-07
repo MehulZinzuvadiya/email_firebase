@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:http/http.dart' as http;
 
 class NotificationService {
   static NotificationService notificationService = NotificationService._();
@@ -58,12 +61,48 @@ class NotificationService {
     AndroidNotificationDetails androidNotificationDetails =
         AndroidNotificationDetails("1", "ANDROID",
             sound: RawResourceAndroidNotificationSound('pikachu'),
-        playSound: true);
+            playSound: true);
     DarwinNotificationDetails iosDetails = DarwinNotificationDetails();
     NotificationDetails notificationDetails = NotificationDetails(
         android: androidNotificationDetails, iOS: iosDetails);
 
     await flutterLocalNotificationsPlugin.show(
         1, "Flutter Notification", "Sound Notification", notificationDetails);
+  }
+
+  Future<void> showBigPictureNotification() async {
+    String link =
+        "https://static.toiimg.com/thumb/msid-86709670,imgsize-105512,width-400,resizemode-4/86709670.jpg";
+
+    String base64 = await uriToBase64(link);
+    BigPictureStyleInformation bigPicInfo = BigPictureStyleInformation(
+        ByteArrayAndroidBitmap.fromBase64String(base64));
+    AndroidNotificationDetails androidNotificationDetails =
+        AndroidNotificationDetails("1", "ANDROID",
+            styleInformation: bigPicInfo);
+    DarwinNotificationDetails iosDetails = DarwinNotificationDetails();
+    NotificationDetails notificationDetails = NotificationDetails(
+        android: androidNotificationDetails, iOS: iosDetails);
+
+    await flutterLocalNotificationsPlugin.show(
+        1, "Mehul app", "End of Season Sale..", notificationDetails);
+  }
+
+  Future<String> uriToBase64(String link) async {
+    final http.Response response = await http.get(Uri.parse(link));
+    final String base64Data = base64Encode(response.bodyBytes);
+    return base64Data;
+  }
+
+  Future<void> showFireNotification(String title, String body) async {
+    AndroidNotificationDetails androidNotificationDetails =
+        AndroidNotificationDetails("1", "ANDROID");
+
+    DarwinNotificationDetails iosDetails = DarwinNotificationDetails();
+    NotificationDetails notificationDetails = NotificationDetails(
+        android: androidNotificationDetails, iOS: iosDetails);
+
+    await flutterLocalNotificationsPlugin.show(
+        1, "$title", "$body", notificationDetails);
   }
 }

@@ -24,16 +24,16 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    FirebaseHelper.firebaseHelper.initFirebaseMessage();
     homeController.userDetail.value = FirebaseHelper.firebaseHelper.UserData();
   }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
         title: Text(
-          "Firebase Authentication",
+          "Firebase auth & notification",
           style: GoogleFonts.lato(
             fontSize: 22,
             color: Colors.black54,
@@ -57,23 +57,45 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         actions: [
-          IconButton(
-              onPressed: () async {
-                await NotificationService.notificationService
-                    .showSimpleNotification();
-              },
-              icon: Icon(Icons.notifications_active)),
-          IconButton(
-              onPressed: () async {
-                await NotificationService.notificationService.zonedSchedule();
-              },
-              icon: Icon(Icons.timer)),
-          IconButton(
-              onPressed: () async {
-                await NotificationService.notificationService
-                    .showNotificationWithSound();
-              },
-              icon: Icon(Icons.circle_notifications)),
+          PopupMenuButton(
+            color: Colors.black54,
+            itemBuilder: (context) {
+              return [
+                PopupMenuItem(
+                  child: IconButton(
+                      onPressed: () async {
+                        await NotificationService.notificationService
+                            .showSimpleNotification();
+                      },
+                      icon: Icon(Icons.notifications_active)),
+                ),
+                PopupMenuItem(
+                  child: IconButton(
+                      onPressed: () async {
+                        await NotificationService.notificationService
+                            .zonedSchedule();
+                      },
+                      icon: Icon(Icons.timer)),
+                ),
+                PopupMenuItem(
+                  child: IconButton(
+                      onPressed: () async {
+                        await NotificationService.notificationService
+                            .showNotificationWithSound();
+                      },
+                      icon: Icon(Icons.circle_notifications)),
+                ),
+                PopupMenuItem(
+                  child: IconButton(
+                      onPressed: () async {
+                        await NotificationService.notificationService
+                            .showBigPictureNotification();
+                      },
+                      icon: Icon(Icons.image_outlined)),
+                ),
+              ];
+            },
+          )
         ],
       ),
       drawer: Drawer(

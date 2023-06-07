@@ -25,7 +25,6 @@ class _AddDataScreenState extends State<AddDataScreen> {
       text: "${TimeOfDay.now().hour}:${TimeOfDay.now().minute}");
   TextEditingController txtpriority = TextEditingController();
 
-  // Map map = Get.arguments;
   HomeController homeController = Get.put(HomeController());
 
   HomeModel homeModel = Get.arguments;
