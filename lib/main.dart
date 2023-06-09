@@ -1,3 +1,4 @@
+import 'package:email_firebase/API/View/apiScreen.dart';
 import 'package:email_firebase/Utils/Notification_Service.dart';
 import 'package:email_firebase/addData/add_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -18,6 +19,7 @@ Future<void> main() async {
         (BuildContext context, Orientation orientation, DeviceType deviceType) {
       return GetMaterialApp(
         debugShowCheckedModeBanner: false,
+        // initialRoute: '/api',
         getPages: [
           GetPage(
             name: '/',
@@ -38,6 +40,10 @@ Future<void> main() async {
           GetPage(
             name: '/addData',
             page: () => AddDataScreen(),
+          ),
+          GetPage(
+            name: '/api',
+            page: () => APiScreen(),
           ),
         ],
       );

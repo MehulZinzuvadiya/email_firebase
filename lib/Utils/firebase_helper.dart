@@ -154,7 +154,7 @@ class FirebaseHelper {
 
   Future<void> initFirebaseMessage() async {
     final fcmToken = await FirebaseMessaging.instance.getToken();
-    print(fcmToken);
+    print("Token====================$fcmToken");
     await firebaseMessaging.setAutoInitEnabled(true);
 
     NotificationSettings settings = await firebaseMessaging.requestPermission(

@@ -161,6 +161,7 @@ class _AddDataScreenState extends State<AddDataScreen> {
               height: 5.sp,
             ),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.greenAccent),
               onPressed: () {
                 homeModel.checkupdate == 0
                     ? FirebaseHelper.firebaseHelper.addTask(
@@ -169,6 +170,7 @@ class _AddDataScreenState extends State<AddDataScreen> {
                         notes: txtnotes.text,
                         priority: txtpriority.text,
                         time: txttime.text,
+
                       )
                     : FirebaseHelper.firebaseHelper.updateTask(
                         time: txttime.text,
@@ -181,7 +183,7 @@ class _AddDataScreenState extends State<AddDataScreen> {
                 Get.back();
               },
               child: Text(homeModel.checkupdate == 0 ? "Add" : "Update",
-                  style: GoogleFonts.poppins()),
+                  style: GoogleFonts.poppins(color: Colors.black)),
             ),
           ]),
         ),

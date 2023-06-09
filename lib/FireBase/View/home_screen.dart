@@ -93,6 +93,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                       icon: Icon(Icons.image_outlined)),
                 ),
+                PopupMenuItem(
+                  child: TextButton(
+                    onPressed: () {
+                      Get.toNamed('/api');
+                    },
+                    child: Text("API"),
+                  ),
+                ),
               ];
             },
           )
@@ -166,6 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
             return Text("${snapshot.error}");
           } else if (snapshot.hasData) {
             QuerySnapshot? Snapdata = snapshot.data;
+            homeController.DataList=[];
 
             for (var x in Snapdata!.docs) {
               Map? data = x.data() as Map;
@@ -201,6 +210,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       time: homeController.DataList[index].time,
                       notes: homeController.DataList[index].notes,
                       priority: homeController.DataList[index].priority,
+                      key: homeController.DataList[index].key,
                       checkupdate: 1,
                     );
                     Get.toNamed("/addData", arguments: homeModel);
