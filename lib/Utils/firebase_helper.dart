@@ -5,6 +5,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../Ecommerce/FirstScreen/Model/eModel.dart';
+
 class FirebaseHelper {
   static FirebaseHelper firebaseHelper = FirebaseHelper._();
 
@@ -75,7 +77,6 @@ class FirebaseHelper {
 
   Map UserData() {
     User? user = firebaseAuth.currentUser;
-
     String? image = user!.photoURL;
     String? name = user.displayName;
     String? email = user.email;
@@ -181,4 +182,80 @@ class FirebaseHelper {
       }
     });
   }
+
+  // ==================================================================================
+  // ==================================================================================
+
+  //                            E-Commerce App Helper
+
+  //====================================================================================
+  //  ===================================================================================
+
+  void addProduct({
+    required name,
+    required price,
+    required desc,
+    required rating,
+    required image,
+  }) {
+    String uid = getUid();
+    firebaseFirestore
+        .collection("Ecommerce")
+        .doc("$uid")
+        .collection("Product")
+        .add(
+      {
+        "name": name,
+        "price": price,
+        "desc": desc,
+        "rating": rating,
+        "image": image,
+      },
+    );
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> readProduct() {
+    String uid = getUid();
+
+    return firebaseFirestore
+        .collection("Ecommerce")
+        .doc("$uid")
+        .collection("Product")
+        .snapshots();
+  }
+
+  void updateProduct({
+    required name,
+    required price,
+    required desc,
+    required rating,
+    required image,
+    required key,
+  }) {
+    String uid = getUid();
+    firebaseFirestore
+        .collection("Ecommerce")
+        .doc("$uid")
+        .collection("Product")
+        .doc(key)
+        .set({
+      "name": name,
+      "price": price,
+      "desc": desc,
+      "rating": rating,
+      "image": image,
+    });
+  }
+
+  Future<void> deleteProduct(String key) async {
+    String uid = getUid();
+
+    await firebaseFirestore
+        .collection("Ecommerce")
+        .doc("$uid")
+        .collection("Product")
+        .doc(key)
+        .delete();
+  }
+
 }

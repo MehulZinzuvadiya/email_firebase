@@ -6,7 +6,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:http/http.dart' as http;
 
 class ApiHelper {
-
   Future<String> postApiCall(String subtitle, String title) async {
     String? apiLink = "https://fcm.googleapis.com/fcm/send";
     Uri uri = Uri.parse(apiLink);

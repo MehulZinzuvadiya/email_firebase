@@ -1,3 +1,5 @@
+import 'package:email_firebase/Ecommerce/FirstScreen/Controller/e_controller.dart';
+import 'package:email_firebase/Ecommerce/FirstScreen/Model/eModel.dart';
 import 'package:email_firebase/FireBase/Model/home_model.dart';
 import 'package:email_firebase/FireBase/controller/home_controller.dart';
 import 'package:email_firebase/Utils/firebase_helper.dart';
@@ -6,63 +8,73 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
-class AddDataScreen extends StatefulWidget {
-  const AddDataScreen({Key? key}) : super(key: key);
+class SecondPage extends StatefulWidget {
+  const SecondPage({Key? key}) : super(key: key);
 
   @override
-  State<AddDataScreen> createState() => _AddDataScreenState();
+  State<SecondPage> createState() => _SecondPageState();
 }
 
-class _AddDataScreenState extends State<AddDataScreen> {
-  // time,priority,notes,date,title
+class _SecondPageState extends State<SecondPage> {
+  // String? name, image, desc, key, rating, price;
+  // int? checkUpdate;
 
-  TextEditingController txttitle = TextEditingController();
-  TextEditingController txtnotes = TextEditingController();
+  TextEditingController txtname = TextEditingController();
+  TextEditingController txtprice = TextEditingController();
   TextEditingController txtdate = TextEditingController(
       text:
           "${DateTime.now().day}/ ${DateTime.now().month}/ ${DateTime.now().year}");
   TextEditingController txttime = TextEditingController(
       text: "${TimeOfDay.now().hour}:${TimeOfDay.now().minute}");
-  TextEditingController txtpriority = TextEditingController();
+  TextEditingController txtimage = TextEditingController();
+  TextEditingController txtdesc = TextEditingController();
+  TextEditingController txtrating = TextEditingController();
 
-  HomeController homeController = Get.put(HomeController());
-
-  HomeModel homeModel = Get.arguments;
+  Econtroller econtroller = Get.put(Econtroller());
+  eModel emodel = Get.arguments;
 
   void NewData() {
-    txttitle = TextEditingController(
-      text: "${homeModel.title}",
+    txtname = TextEditingController(
+      text: "${emodel.name}",
     );
     txtdate = TextEditingController(
-      text: "${homeModel.date}",
+      text: "${emodel.date}",
     );
     txttime = TextEditingController(
-      text: "${homeModel.time}",
+      text: "${emodel.time}",
     );
-    txtpriority = TextEditingController(
-      text: "${homeModel.priority}",
+    txtprice = TextEditingController(
+      text: "${emodel.price}",
     );
-    txtnotes = TextEditingController(
-      text: "${homeModel.notes}",
+    txtdesc = TextEditingController(
+      text: "${emodel.desc}",
+    );
+    txtimage = TextEditingController(
+      text: "${emodel.image}",
+    );
+    txtrating = TextEditingController(
+      text: "${emodel.rating}",
     );
   }
 
   void OldData() {
-    txttitle = TextEditingController();
-    txtpriority = TextEditingController();
+    txtname = TextEditingController();
+    txtrating = TextEditingController();
     txtdate = TextEditingController(
         text:
             "${DateTime.now().day}/ ${DateTime.now().month}/ ${DateTime.now().year}");
     txttime = TextEditingController(
         text: "${TimeOfDay.now().hour}:${TimeOfDay.now().minute}");
-    txtnotes = TextEditingController();
+    txtprice = TextEditingController();
+    txtimage = TextEditingController();
+    txtdesc = TextEditingController();
   }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    homeModel.checkupdate == 1 ? NewData() : OldData();
+    emodel.checkUpdate == 1 ? NewData() : OldData();
   }
 
   @override
@@ -70,7 +82,7 @@ class _AddDataScreenState extends State<AddDataScreen> {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-        title: Text("Insert Detail"),
+        title: const Text("Insert Data"),
         centerTitle: true,
         elevation: 0,
       ),
@@ -79,33 +91,33 @@ class _AddDataScreenState extends State<AddDataScreen> {
           padding: const EdgeInsets.all(10.0),
           child: Column(children: [
             TextField(
-              controller: txttitle,
+              controller: txtname,
               decoration: InputDecoration(
-                  label: Text("Title"),
-                  border: OutlineInputBorder(
+                  label: const Text("Name"),
+                  border: const OutlineInputBorder(
                     borderRadius: BorderRadius.only(
                       topRight: Radius.circular(20),
                       bottomLeft: Radius.circular(20),
                     ),
                   ),
                   focusColor: Colors.blue.shade100,
-                  hintText: "title"),
+                  hintText: "Enter product name"),
             ),
             SizedBox(
               height: 10.sp,
             ),
             TextField(
-              controller: txtpriority,
+              controller: txtprice,
               decoration: InputDecoration(
-                  label: Text("Priority"),
-                  border: OutlineInputBorder(
+                  label: const Text("Price"),
+                  border: const OutlineInputBorder(
                     borderRadius: BorderRadius.only(
                       topRight: Radius.circular(20),
                       bottomLeft: Radius.circular(20),
                     ),
                   ),
                   focusColor: Colors.blue.shade100,
-                  hintText: "priority"),
+                  hintText: "Enter product price"),
             ),
             SizedBox(
               height: 10.sp,
@@ -113,8 +125,8 @@ class _AddDataScreenState extends State<AddDataScreen> {
             TextField(
               controller: txtdate,
               decoration: InputDecoration(
-                  label: Text("Date"),
-                  border: OutlineInputBorder(
+                  label: const Text("Date"),
+                  border: const OutlineInputBorder(
                     borderRadius: BorderRadius.only(
                       topRight: Radius.circular(20),
                       bottomLeft: Radius.circular(20),
@@ -128,7 +140,7 @@ class _AddDataScreenState extends State<AddDataScreen> {
             ),
             TextField(
               controller: txttime,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   label: Text("Time"),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.only(
@@ -143,10 +155,42 @@ class _AddDataScreenState extends State<AddDataScreen> {
               height: 10.sp,
             ),
             TextField(
-              controller: txtnotes,
+              controller: txtimage,
+              decoration: const InputDecoration(
+                  label: Text("Image"),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(20),
+                      bottomLeft: Radius.circular(20),
+                    ),
+                  ),
+                  focusColor: Colors.blue,
+                  hintText: "enter link"),
+            ),
+            SizedBox(
+              height: 10.sp,
+            ),
+            TextField(
+              controller: txtrating,
+              decoration: const InputDecoration(
+                  label: Text("Rating"),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(20),
+                      bottomLeft: Radius.circular(20),
+                    ),
+                  ),
+                  focusColor: Colors.blue,
+                  hintText: "enter rating"),
+            ),
+            SizedBox(
+              height: 10.sp,
+            ),
+            TextField(
+              controller: txtdesc,
               maxLines: 5,
-              decoration: InputDecoration(
-                label: Text("Notes"),
+              decoration: const InputDecoration(
+                label: Text("Description"),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(20),
@@ -164,25 +208,25 @@ class _AddDataScreenState extends State<AddDataScreen> {
               style:
                   ElevatedButton.styleFrom(backgroundColor: Colors.greenAccent),
               onPressed: () {
-                homeModel.checkupdate == 0
-                    ? FirebaseHelper.firebaseHelper.addTask(
-                        title: txttitle.text,
-                        date: txtdate.text,
-                        notes: txtnotes.text,
-                        priority: txtpriority.text,
-                        time: txttime.text,
+                emodel.checkUpdate == 0
+                    ? FirebaseHelper.firebaseHelper.addProduct(
+                        name: txtname.text,
+                        rating: txtrating.text,
+                        price: txtprice.text,
+                        image: txtimage.text,
+                        desc: txtdesc.text,
                       )
-                    : FirebaseHelper.firebaseHelper.updateTask(
-                        time: txttime.text,
-                        priority: txtpriority.text,
-                        notes: txtnotes.text,
-                        date: txtdate.text,
-                        title: txttitle.text,
-                        key: homeModel.key,
+                    : FirebaseHelper.firebaseHelper.updateProduct(
+                        name: txtname.text,
+                        desc: txtdesc.text,
+                        image: txtimage.text,
+                        price: txtprice.text,
+                        rating: txtrating.text,
+                        key: emodel.key,
                       );
                 Get.back();
               },
-              child: Text(homeModel.checkupdate == 0 ? "Add" : "Update",
+              child: Text(emodel.checkUpdate == 0 ? "Add" : "Update",
                   style: GoogleFonts.poppins(color: Colors.black)),
             ),
           ]),

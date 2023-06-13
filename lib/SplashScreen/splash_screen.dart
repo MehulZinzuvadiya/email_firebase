@@ -25,16 +25,16 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     Timer(Duration(seconds: 3),
-        () => Get.offAndToNamed(isLogin ? '/home' : '/login'));
+        () => Get.offAndToNamed(isLogin ? '/eFirst' : '/login'));
     return SafeArea(
         child: Scaffold(
-            body: Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
+            body: Center(
+              child: Container(
       decoration: BoxDecoration(),
       child: Image.network(
-          "https://img.freepik.com/free-vector/connected-world-concept-illustration_114360-3027.jpg?w=740&t=st=1685009308~exp=1685009908~hmac=e9eb6c15e2885ab4bb9ba267fc4b2dc9441194772bf157d4e40d4843dcece890",
+          "https://as1.ftcdn.net/v2/jpg/05/07/73/68/1000_F_507736877_7Oc9fLH0l9dbhv6P4TpyJwqJJRg7s8RW.jpg",
           fit: BoxFit.cover),
-    )));
+    ),
+            )));
   }
 }

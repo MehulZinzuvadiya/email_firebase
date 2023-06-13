@@ -27,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
     FirebaseHelper.firebaseHelper.initFirebaseMessage();
     homeController.userDetail.value = FirebaseHelper.firebaseHelper.UserData();
   }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -174,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
             return Text("${snapshot.error}");
           } else if (snapshot.hasData) {
             QuerySnapshot? Snapdata = snapshot.data;
-            homeController.DataList=[];
+            homeController.DataList = [];
 
             for (var x in Snapdata!.docs) {
               Map? data = x.data() as Map;

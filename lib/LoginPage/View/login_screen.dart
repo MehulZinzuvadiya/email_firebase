@@ -137,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               .signIn(email: "$email", password: "$password");
                           Get.snackbar("$msg", "user added!");
                           if (msg == "Success") {
-                            Get.offAndToNamed('/home');
+                            Get.offAndToNamed('/eFirst');
                           }
                         },
                         child: Container(

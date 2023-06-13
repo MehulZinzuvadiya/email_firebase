@@ -5,6 +5,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'Ecommerce/FirstScreen/View/FirstScreen/first_screen.dart';
+import 'Ecommerce/SecondPage/View/second_page.dart';
 import 'FireBase/View/home_screen.dart';
 import 'LoginPage/View/login_screen.dart';
 import 'SignUpPage/signup_screen.dart';
@@ -34,7 +36,7 @@ Future<void> main() async {
             page: () => SignUpScreen(),
           ),
           GetPage(
-            name: '/home',
+            name: '/todo',
             page: () => HomeScreen(),
           ),
           GetPage(
@@ -44,6 +46,14 @@ Future<void> main() async {
           GetPage(
             name: '/api',
             page: () => APiScreen(),
+          ),
+          GetPage(
+            name: '/eFirst',
+            page: () => FirstScreen(),
+          ),
+          GetPage(
+            name: '/eSecond',
+            page: () => SecondPage(),
           ),
         ],
       );

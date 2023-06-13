@@ -169,7 +169,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                           Get.snackbar("$msg", "Guser added ");
                           if (msg == "Success") {
-                            Get.offAndToNamed('/home');
+                            Get.offAllNamed('/eFirst');
                           }
                         },
                         child: Container(
