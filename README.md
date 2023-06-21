@@ -23,7 +23,7 @@ User Panel
  <img src="https://github.com/MehulZinzuvadiya/email_firebase/assets/120629701/31f0cfeb-d0f7-42df-aea7-9c8066cce740" width=30% height=50%>
  <img src="https://github.com/MehulZinzuvadiya/email_firebase/assets/120629701/d8671179-fc2a-427e-b30d-deda4cfb1f9a" width=30% height=50%>
  <img src="https://github.com/MehulZinzuvadiya/email_firebase/assets/120629701/af226e9e-2d59-4405-850d-740508aedbdc" width=30% height=50%>
- <img src="https://github.com/MehulZinzuvadiya/email_firebase/assets/120629701/bf12d9f0-cf89-4e9b-9efc-1eb86203e700" width=30% height=50%>
+ 
  
 </p>
 
